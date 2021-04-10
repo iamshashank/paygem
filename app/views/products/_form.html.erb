@@ -14,7 +14,7 @@
   <div class="field">
     <%= form.label :name %>
     <%= form.text_field :name %>
-    <%= form.number_field :name %>
+    <%= form.number_field :price, min: 50, step: 10 %>
   </div>
 
   <div class="actions">

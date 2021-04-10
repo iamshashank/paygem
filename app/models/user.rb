@@ -6,7 +6,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, 
          :confirmable, :trackable
 
-  has_many :user_products
+  has_many :user_products, dependent: :destroy
   has_many :bought_products, through: :user_products, source: :product, class_name: "Product"
 
 

@@ -21,8 +21,8 @@ class CheckoutsController < ApplicationController
         }],
         mode: 'payment',
         # These placeholder URLs will be replaced in a following step.
-        success_url: 'http://localhost:3000/products?abc=1',
-        cancel_url: 'http://localhost:3000/products?abc=2',
+        success_url: 'https://obscure-caverns-44111.herokuapp.com/products',
+        cancel_url: 'https://obscure-caverns-44111.herokuapp.com/products',
         })
     end
 

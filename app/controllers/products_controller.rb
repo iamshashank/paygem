@@ -1,0 +1,91 @@
+class ProductsController < ApplicationController
+  before_action :set_product, only: %i[ buy show edit update destroy ]
+
+  # GET /products or /products.json
+  def index
+    @products = Product.all
+  end
+
+  # GET /products/1 or /products/1.json
+  def show
+    billable = current_user.user_products.create(product: @product)
+    billable.processor = 'stripe'
+    billable.customer
+    @checkout_session = billable.payment_processor.checkout({
+      payment_intent_data: {
+        setup_future_usage: 'off_session',
+      },
+      line_items: [{
+        price_data: {
+          currency: 'usd',
+          product_data: {
+            name: @product.name,
+          },
+          unit_amount: @product.price,
+        },
+        quantity: 1,
+      }],
+      mode: 'payment',
+      # These placeholder URLs will be replaced in a following step.
+      success_url: 'http://localhost:3000/products?abc=1',
+      cancel_url: 'http://localhost:3000/products?abc=2',
+    })
+  end
+
+  # GET /products/new
+  def new
+    @product = Product.new
+  end
+
+  # GET /products/1/edit
+  def edit
+  end
+
+  # POST /products or /products.json
+  def create
+    @product = Product.new(product_params)
+
+    respond_to do |format|
+      if @product.save
+        format.html { redirect_to @product, notice: "Product was successfully created." }
+        format.json { render :show, status: :created, location: @product }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @product.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PATCH/PUT /products/1 or /products/1.json
+  def update
+    respond_to do |format|
+      if @product.update(product_params)
+        format.html { redirect_to @product, notice: "Product was successfully updated." }
+        format.json { render :show, status: :ok, location: @product }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @product.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /products/1 or /products/1.json
+  def destroy
+    @product.destroy
+    respond_to do |format|
+      format.html { redirect_to products_url, notice: "Product was successfully destroyed." }
+      format.json { head :no_content }
+    end
+  end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_product
+      @product = Product.find(params[:id])
+    end
+
+    # Only allow a list of trusted parameters through.
+    def product_params
+      params.require(:product).permit(:name)
+    end
+end

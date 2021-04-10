@@ -2,6 +2,7 @@ class UserProduct < ApplicationRecord
   include Pay::Billable
   belongs_to :user
   belongs_to :product
+  
 
   def email
     user.email

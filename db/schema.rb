@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_10_123917) do
+ActiveRecord::Schema.define(version: 2021_04_10_153252) do
 
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(version: 2021_04_10_123917) do
     t.string "card_exp_month"
     t.string "card_exp_year"
     t.text "extra_billing_info"
+    t.integer "payment_status", limit: 1
     t.index ["product_id"], name: "index_user_products_on_product_id"
     t.index ["user_id"], name: "index_user_products_on_user_id"
   end
@@ -122,6 +123,7 @@ ActiveRecord::Schema.define(version: 2021_04_10_123917) do
     t.string "card_exp_month"
     t.string "card_exp_year"
     t.text "extra_billing_info"
+    t.integer "payment_status", limit: 1
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

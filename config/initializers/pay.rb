@@ -1,9 +1,10 @@
 Pay.setup do |config|
-  config.chargeable_class = 'Pay::Charge'
+  # config.chargeable_class = 'Pay::Charge'
+  config.chargeable_class = "Charge"
   config.chargeable_table = 'pay_charges'
 
   # For use in the receipt/refund/renewal mailers
-  config.business_name = "Business Name"
+  config.business_name = "Test Business"
   config.business_address = "1600 Pennsylvania Avenue NW"
   config.application_name = "My App"
   config.support_email = "helpme@example.com"

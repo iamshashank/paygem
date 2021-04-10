@@ -13,13 +13,14 @@ default: &default
   adapter: mysql2
   encoding: utf8mb4
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  socket: /var/run/mysqld/mysqld.sock
 
 development:
   <<: *default
   database: paygem_test_development
   username: root
   password: Password*1
+  socket: /var/run/mysqld/mysqld.sock
+
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
@@ -28,6 +29,8 @@ test:
   database: paygem_test_test
   username: root
   password: Password*1
+  socket: /var/run/mysqld/mysqld.sock
+
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
 # ever seen by anyone, they now have access to your database.
@@ -50,4 +53,4 @@ test:
 #
 production:
   <<: *default
-  database: <%= ENV['CLEARDB_DATABASE_URL'] %>
+  url: <%= ENV['CLEARDB_DATABASE_URL'] %>

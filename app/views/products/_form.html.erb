@@ -15,6 +15,15 @@
     <%= form.label :name %>
     <%= form.text_field :name %>
   </div>
+  
+  <div class="field">
+    <%= form.label :product_image %>
+    <% if form.object.product_image.present? %>
+      <%= image_tag form.object.product_image, height: "60" %>
+    <% end %>
+    <%= form.file_field :product_image %>
+  </div>
+
   <div class="field">
     <%= form.label :price %>
     <%= form.number_field :price, min: 50, step: 10 %>

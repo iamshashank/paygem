@@ -10,5 +10,9 @@ Rails.application.routes.draw do
   devise_scope :user do
     root to: "devise/sessions#new"
   end
-
+  resources :checkouts, only: [] do
+    member do
+      get :checkout
+    end
+  end
 end

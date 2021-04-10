@@ -14,11 +14,23 @@
   <tbody>
     <% @products.each do |product| %>
       <tr>
+        <td>
+          <% if product.product_image.present? %>
+            <%= image_tag product.product_image, class: "w-11" %>
+          <% end %>  
+        </td>
+      
         <td><%= product.name %></td>
         <td><%= product.price %></td>
         <td><%= link_to 'Show', product %></td>
         <td><%= link_to 'Edit', edit_product_path(product) %></td>
         <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <% if product.product_image.attached? %>
+            <%= link_to "download", rails_blob_url(product.product_image), download: true %>
+          <% end %>
+        </td>
+        <td><%= link_to 'buy', checkout_checkout_path(product.id) %></td>
       </tr>
     <% end %>
   </tbody>

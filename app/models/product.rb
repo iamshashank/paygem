@@ -1,4 +1,5 @@
 class Product < ApplicationRecord
+    has_one_attached :product_image, dependent: :destroy
     has_many :user_products, dependent: :destroy
     has_many :buyers, through: :user_products, source: :user, class_name: "User" 
 
